@@ -1,4 +1,6 @@
-﻿namespace MyString
+﻿using System.Text;
+
+namespace MyString
 {
     public class MyString
     {
@@ -7,7 +9,7 @@
         {
             this._value = value;
         }
-        //String.prototype.at()
+
         //String.prototype.concat() read about string builder C#
         //String.prototype.endsWith()
         //String.prototype.includes()
@@ -30,17 +32,49 @@
         {
             //Hello
             string? stringAt = null;
-
-            for (int i = 0; i < this._value.Length; i++)
+            if (index >= 0)
             {
-                if (i == index)
+                for (int i = 0; i < this._value.Length; i++)
                 {
-                    stringAt = this._value[i].ToString();
-                    break;
+                    if (i == index)
+                    {
+                        stringAt = this._value[i].ToString();
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = -1; i >= -this._value.Length; i--)
+                {
+                    if (i == index)
+                    {
+                        stringAt = this._value[this._value.Length + i].ToString();
+                        break;
+                    }
                 }
             }
 
+
             return stringAt;
+        }
+
+        public string? Concat(params object[] text)
+        {
+            string? concatStr = null;
+            if (text.Length > 0)
+            {
+                var sb = new StringBuilder(this._value);
+                foreach (var item in text)
+                {
+                    sb.Append(item.ToString());
+                }
+
+                concatStr = sb.ToString();
+            }
+
+
+            return concatStr;
         }
     }
 }
