@@ -10,8 +10,13 @@ namespace MyString
             this._value = value;
         }
 
-        //String.prototype.concat() read about string builder C#
         //String.prototype.endsWith()
+        public string? EndsWith()
+        {
+            string? endsWith = null;
+            return endsWith;
+        }
+
         //String.prototype.includes()
         //String.prototype.lastIndexOf()
         //String.prototype.padEnd()
@@ -28,6 +33,8 @@ namespace MyString
         //String.prototype.trim()
         //String.prototype.trimEnd()
         //String.prototype.trimStart()
+
+        //String.At() - Similar to JS String method
         public string? At(int index)
         {
             //Hello
@@ -59,6 +66,7 @@ namespace MyString
             return stringAt;
         }
 
+        //String.Concat() read about string builder C#
         public string? Concat(params object[] text)
         {
             string? concatStr = null;
@@ -75,6 +83,29 @@ namespace MyString
 
 
             return concatStr;
+        }
+        /// <summary>
+        /// Concatenates the elements of a specified array or the members of a collection, 
+        /// using the specified separator between each element or member.
+        /// </summary>
+        /// <returns>joinStr or null</returns>
+        public string? Join(string separator, params object[] text)
+        {
+            string? joinStr = null;
+
+            if (text.Length > 0)
+            {
+                var sb = new StringBuilder(this._value);
+                foreach (var item in text)
+                {
+                    sb.Append(separator);
+                    sb.Append(item.ToString());
+                }
+
+                joinStr = sb.ToString();
+            }
+
+            return joinStr;
         }
     }
 }

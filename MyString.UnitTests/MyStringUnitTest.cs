@@ -74,5 +74,17 @@ namespace MyString.UnitTests
 
             Assert.AreEqual(String.Concat("Hello", obj1, str1, str2), str.Concat(obj1, str1, str2));
         }
+
+        [TestMethod, TestCategory("Join")]
+        public void JoinTest()
+        {
+            var str = new MyString("Hello");
+            var separator = ", ";
+            var str1 = "Oleksii";
+            var str2 = "Dmytro";
+            var str3 = "Taras";
+
+            Assert.AreEqual(String.Join(separator, "Hello", str1, str2, str3), str.Join(separator, str1, str2, str3));
+        }
     }
 }
