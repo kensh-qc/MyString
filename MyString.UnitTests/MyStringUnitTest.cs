@@ -4,87 +4,45 @@ namespace MyString.UnitTests
     public class MyStringUnitTest
     {
         [TestMethod, TestCategory("At")]
-        public void AtTestPositiveWithinRange()
+        public void AtTest()
         {
-            var str = new MyString("Hello");
-            Assert.AreEqual("H", str.At(0));
-            Assert.AreEqual("l", str.At(3));
-            Assert.AreEqual("o", str.At(4));
-        }
+            var str = "Hello";
 
-        [TestMethod, TestCategory("At")]
-        public void AtTestPositiveOutsideOfRange()
-        {
-            var str = new MyString("Hello");
-            Assert.IsNull(str.At(100));
-        }
-
-        [TestMethod, TestCategory("At")]
-        public void AtTestNegativeOutsideOfRange()
-        {
-            var str = new MyString("Hello");
-            Assert.IsNull(str.At(-100));
-        }
-
-        [TestMethod, TestCategory("At")]
-        public void AtTestNegativeWithinRange()
-        {
-            var str = new MyString("Hello");
-            Assert.AreEqual("o", str.At(-1));
-            Assert.AreEqual("l", str.At(-2));
-            Assert.AreEqual("e", str.At(-4));
-            Assert.AreEqual("H", str.At(-5));
+            Assert.AreEqual("H", MyString.At(0, str), "At test positive within range, 0");
+            Assert.AreEqual("l", MyString.At(3, str), "At test positive within range, 3");
+            Assert.AreEqual("o", MyString.At(4, str), "At test positive within range, 4");
+            Assert.IsNull(MyString.At(100, str), "At test positive outside range, 100");
+            Assert.IsNull(MyString.At(-100, str), "At test negative outside range, -100");
+            Assert.AreEqual("o", MyString.At(-1, str), "At test negative within range, -1");
+            Assert.AreEqual("l", MyString.At(-2, str), "At test negative within range, -2");
+            Assert.AreEqual("e", MyString.At(-4, str), "At test negative within range, -4");
+            Assert.AreEqual("H", MyString.At(-5, str), "At test negative within range, -5");
         }
 
         [TestMethod, TestCategory("Concat")]
-        public void ConcatTestSingle()
+        public void ConcatTest()
         {
-            var str = new MyString("Hello");
-            var str1 = " World!";
-
-            Assert.AreEqual("Hello World!", str.Concat(str1));
-        }
-
-        [TestMethod, TestCategory("Concat")]
-        public void ConcatTestMultiple()
-        {
-            var str = new MyString("Hello");
-            var str1 = " Concat test";
-            var str2 = " one more";
+            var str1 = "Hello";
+            var str2 = " World!";
             var str3 = " and more";
             var str4 = " even more";
             var str5 = " and last time.";
-            Assert.AreEqual("Hello Concat test one more and more even more and last time.", str.Concat(str1, str2, str3, str4, str5));
-        }
 
-        [TestMethod, TestCategory("Concat")]
-        public void ConcatNoArgs()
-        {
-            var str = new MyString("Hello");
-            Assert.IsNull(str.Concat());
-        }
-
-        [TestMethod, TestCategory("Concat")]
-        public void ConcatObjectWithinParams()
-        {
-            var str = new MyString("Hello");
-            var obj1 = new Object();
-            var str1 = "Test";
-            var str2 = "Test2";
-
-            Assert.AreEqual(String.Concat("Hello", obj1, str1, str2), str.Concat(obj1, str1, str2));
+            Assert.AreEqual(String.Concat(str1, str2), MyString.Concat(str1, str2), "Concat test 2 string args");
+            Assert.AreEqual(String.Concat(str1, str2, str3, str4, str5), MyString.Concat(str1, str2, str3, str4, str5), "Concat test multiple agrs");
+            Assert.AreEqual(String.Concat(null, null), MyString.Concat(null, null), "Concat test null in args");
         }
 
         [TestMethod, TestCategory("Join")]
         public void JoinTest()
         {
-            var str = new MyString("Hello");
             var separator = ", ";
             var str1 = "Oleksii";
             var str2 = "Dmytro";
             var str3 = "Taras";
 
-            Assert.AreEqual(String.Join(separator, "Hello", str1, str2, str3), str.Join(separator, str1, str2, str3));
+            Assert.AreEqual(String.Join(separator, str1, str2, str3), MyString.Join(separator, str1, str2, str3), "Join test multiple args");
+            Assert.AreEqual(String.Join(null, null, null), MyString.Join(null, null, null), "Join test null in args");
         }
     }
 }

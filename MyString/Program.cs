@@ -1,12 +1,12 @@
-﻿namespace MyString
+﻿using System;
+
+namespace MyString
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            var str = new MyString("Hello");
-
-            str.At(-5);
+            Console.WriteLine(String.Concat("test", null));
         }
     }
 }

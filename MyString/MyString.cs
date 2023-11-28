@@ -10,11 +10,92 @@ namespace MyString
             this._value = value;
         }
 
-        //String.prototype.endsWith()
+        //String.At() - Similar to JS String method
+        public static string? At(int index, string? text)
+        {
+            string? stringAt = null;
+            if (text != null)
+            {
+                if (index >= 0)
+                {
+
+                    for (int i = 0; i < text.Length; i++)
+                    {
+                        if (i == index)
+                        {
+                            stringAt = text[i].ToString();
+                            break;
+                        }
+                    }
+
+                }
+                else
+                {
+                    for (int i = -1; i >= -text.Length; i--)
+                    {
+                        if (i == index)
+                        {
+                            stringAt = text[text.Length + i].ToString();
+                            break;
+                        }
+                    }
+
+                }
+
+            }
+            return stringAt;
+        }
+
+        //String.Concat()
+        public static string Concat(params string?[] text)
+        {
+            string concatStr = "";
+            if (text.Length > 0)
+            {
+                var sb = new StringBuilder();
+                foreach (var item in text)
+                {
+                    if (item != null)
+                    {
+                        sb.Append(item.ToString());
+                    }
+                }
+
+                concatStr = sb.ToString();
+            }
+
+            return concatStr;
+        }
+
+        //String.EndsWith()
         public string? EndsWith()
         {
             string? endsWith = null;
             return endsWith;
+        }
+
+        //String.Join()
+        public static string Join(string? separator, params string?[] text)
+        {
+            string joinStr = "";
+
+            if (text.Length > 0)
+            {
+                var sb = new StringBuilder();
+                foreach (var item in text)
+                {
+                    if (item != null)
+                    {
+                        if (separator != null && sb.Length > 0) sb.Append(separator);
+                        sb.Append(item);
+                    }
+
+                }
+
+                joinStr = sb.ToString();
+            }
+
+            return joinStr;
         }
 
         //String.prototype.includes()
@@ -33,79 +114,5 @@ namespace MyString
         //String.prototype.trim()
         //String.prototype.trimEnd()
         //String.prototype.trimStart()
-
-        //String.At() - Similar to JS String method
-        public string? At(int index)
-        {
-            //Hello
-            string? stringAt = null;
-            if (index >= 0)
-            {
-                for (int i = 0; i < this._value.Length; i++)
-                {
-                    if (i == index)
-                    {
-                        stringAt = this._value[i].ToString();
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                for (int i = -1; i >= -this._value.Length; i--)
-                {
-                    if (i == index)
-                    {
-                        stringAt = this._value[this._value.Length + i].ToString();
-                        break;
-                    }
-                }
-            }
-
-
-            return stringAt;
-        }
-
-        //String.Concat() read about string builder C#
-        public string? Concat(params object[] text)
-        {
-            string? concatStr = null;
-            if (text.Length > 0)
-            {
-                var sb = new StringBuilder(this._value);
-                foreach (var item in text)
-                {
-                    sb.Append(item.ToString());
-                }
-
-                concatStr = sb.ToString();
-            }
-
-
-            return concatStr;
-        }
-        /// <summary>
-        /// Concatenates the elements of a specified array or the members of a collection, 
-        /// using the specified separator between each element or member.
-        /// </summary>
-        /// <returns>joinStr or null</returns>
-        public string? Join(string separator, params object[] text)
-        {
-            string? joinStr = null;
-
-            if (text.Length > 0)
-            {
-                var sb = new StringBuilder(this._value);
-                foreach (var item in text)
-                {
-                    sb.Append(separator);
-                    sb.Append(item.ToString());
-                }
-
-                joinStr = sb.ToString();
-            }
-
-            return joinStr;
-        }
     }
 }
