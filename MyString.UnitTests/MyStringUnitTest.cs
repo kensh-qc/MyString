@@ -77,6 +77,23 @@ namespace MyString.UnitTests
             Assert.AreEqual(stringObj.EndsWith(sameText), myString.EndsWith(sameText), "EndsWith test same text");
         }
 
+        [TestMethod, TestCategory("IndexOf")]
+        public void IndexOfTest()
+        {
+            var text = "Hello World!";
+            var myString = new MyString(text);
+            var stringObj = new String(text);
+            var searchPositiveOneChar = "e";
+            var searchPositiveMultipleChars = "ld!";
+            var searchNegativeOneChar = "a";
+            var searchNegativeMultipleChars = "ld.";
+            var searchNegativeAllMultipleChars = "Ae";
 
+            Assert.AreEqual(stringObj.IndexOf(searchPositiveOneChar), myString.IndexOf(searchPositiveOneChar), "One Char");
+            Assert.AreEqual(stringObj.IndexOf(searchPositiveMultipleChars), myString.IndexOf(searchPositiveMultipleChars), "Multiple Chars");
+            Assert.AreEqual(stringObj.IndexOf(searchNegativeOneChar), myString.IndexOf(searchNegativeOneChar), "Negative one Char");
+            Assert.AreEqual(stringObj.IndexOf(searchNegativeMultipleChars), myString.IndexOf(searchNegativeMultipleChars), "Negative multiple Chars");
+            Assert.AreEqual(stringObj.IndexOf(searchNegativeAllMultipleChars), myString.IndexOf(searchNegativeAllMultipleChars), "Negative all multiple Chars");
+        }
     }
 }

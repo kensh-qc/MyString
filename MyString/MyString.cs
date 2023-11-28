@@ -128,6 +128,52 @@ namespace MyString
 
             return joinStr;
         }
+
+        //String.IndexOf()
+        public int IndexOf(string toFind)
+        {
+            var index = -1;
+            bool matchInProgress = false;
+
+            for (int i = 0; i < this._value.Length; i++)
+            {
+                if (toFind[0] == this._value[i] && !matchInProgress)
+                {
+                    index = i;
+                    matchInProgress = true;
+                    if (toFind.Length > 1)
+                    {
+                        for (int j = 0, f = i; j < toFind.Length; j++, f++)
+                        {
+                            if (toFind[j] == this._value[f])
+                            {
+                                if (j + 1 < toFind.Length) matchInProgress = false;
+                                continue;
+                            }
+                            else if (toFind[j] != this._value[f])
+                            {
+                                index = -1;
+                                matchInProgress = false;
+                                break;
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else if (matchInProgress)
+                {
+                    index = -1;
+                    break;
+                }
+            }
+
+            return index;
+        }
+
         //String.prototype.lastIndexOf()
         //String.prototype.padEnd()
         //String.prototype.padStart()
