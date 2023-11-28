@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MyString
 {
@@ -67,27 +68,36 @@ namespace MyString
             return concatStr;
         }
 
+        //String.Contains()
+        public bool Contains(string text)
+        {
+            bool contains = false;
+
+            Regex search = new Regex(text);
+
+            if (search.IsMatch(this._value)) { contains = true; }
+
+            return contains;
+        }
+
         //String.EndsWith()
-        public bool EndsWith(string? text)
+        public bool EndsWith(string text)
         {
             bool endsWith = false;
 
-            if (text != null)
+            var textLength = text.Length;
+            var valueLength = this._value.Length;
+            if (textLength <= valueLength)
             {
-                var textLength = text.Length;
-                var valueLength = this._value.Length;
-                if (textLength <= valueLength)
+                for (int i = 0; i < textLength; i++)
                 {
-                    for (int i = 0; i < textLength; i++)
+                    if (MyString.At(i, text) != MyString.At(valueLength - (textLength - i), this._value))
                     {
-                        if (MyString.At(i, text) != MyString.At(valueLength - (textLength - i), this._value))
-                        {
-                            break;
-                        }
-                        if (i + 1 == textLength)
-                        {
-                            endsWith = true;
-                        }
+                        break;
+                    }
+                    if (i + 1 == textLength)
+                    {
+                        endsWith = true;
                     }
                 }
             }
@@ -118,8 +128,6 @@ namespace MyString
 
             return joinStr;
         }
-
-        //String.prototype.includes()
         //String.prototype.lastIndexOf()
         //String.prototype.padEnd()
         //String.prototype.padStart()

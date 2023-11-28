@@ -33,6 +33,21 @@ namespace MyString.UnitTests
             Assert.AreEqual(String.Concat(null, null), MyString.Concat(null, null), "Concat test null in args");
         }
 
+        [TestMethod, TestCategory("Contains")]
+        public void ContainsTest()
+        {
+            var mainText = "Hello World! We need your help.";
+            var myString = new MyString(mainText);
+            var stringObj = new String(mainText);
+            var searchText = "need";
+            var noText = "Alex";
+            var empty = "";
+
+            Assert.AreEqual(stringObj.Contains(searchText), myString.Contains(searchText), "Contains test text positive case");
+            Assert.AreEqual(stringObj.Contains(noText), myString.Contains(noText), "Contains test text negative case");
+            Assert.AreEqual(stringObj.Contains(empty), myString.Contains(empty), "Contains test text is empty case");
+        }
+
         [TestMethod, TestCategory("Join")]
         public void JoinTest()
         {
@@ -49,15 +64,19 @@ namespace MyString.UnitTests
         public void EndsWithTest()
         {
             var text = "Hello World!";
+            var myString = new MyString(text);
+            var stringObj = new String(text);
             var testPositive = "ld!";
             var testNegative = "Check";
             var sameText = "Hello World!";
             var longText = "Check Hello World!";
 
-            Assert.AreEqual(new String(text).EndsWith(testPositive), new MyString(text).EndsWith(testPositive), "EndsWith test positive, 3 chars");
-            Assert.AreEqual(new String(text).EndsWith(testNegative), new MyString(text).EndsWith(testNegative), "EndsWith test negative");
-            Assert.AreEqual(new String(text).EndsWith(longText), new MyString(text).EndsWith(longText), "EndsWith test too long text");
-            Assert.AreEqual(new String(text).EndsWith(sameText), new MyString(text).EndsWith(sameText), "EndsWith test same text");
+            Assert.AreEqual(stringObj.EndsWith(testPositive), myString.EndsWith(testPositive), "EndsWith test positive, 3 chars");
+            Assert.AreEqual(stringObj.EndsWith(testNegative), myString.EndsWith(testNegative), "EndsWith test negative");
+            Assert.AreEqual(stringObj.EndsWith(longText), myString.EndsWith(longText), "EndsWith test too long text");
+            Assert.AreEqual(stringObj.EndsWith(sameText), myString.EndsWith(sameText), "EndsWith test same text");
         }
+
+
     }
 }
