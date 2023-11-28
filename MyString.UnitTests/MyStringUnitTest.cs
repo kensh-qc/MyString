@@ -44,5 +44,20 @@ namespace MyString.UnitTests
             Assert.AreEqual(String.Join(separator, str1, str2, str3), MyString.Join(separator, str1, str2, str3), "Join test multiple args");
             Assert.AreEqual(String.Join(null, null, null), MyString.Join(null, null, null), "Join test null in args");
         }
+
+        [TestMethod, TestCategory("EndsWith")]
+        public void EndsWithTest()
+        {
+            var text = "Hello World!";
+            var testPositive = "ld!";
+            var testNegative = "Check";
+            var sameText = "Hello World!";
+            var longText = "Check Hello World!";
+
+            Assert.AreEqual(new String(text).EndsWith(testPositive), new MyString(text).EndsWith(testPositive), "EndsWith test positive, 3 chars");
+            Assert.AreEqual(new String(text).EndsWith(testNegative), new MyString(text).EndsWith(testNegative), "EndsWith test negative");
+            Assert.AreEqual(new String(text).EndsWith(longText), new MyString(text).EndsWith(longText), "EndsWith test too long text");
+            Assert.AreEqual(new String(text).EndsWith(sameText), new MyString(text).EndsWith(sameText), "EndsWith test same text");
+        }
     }
 }

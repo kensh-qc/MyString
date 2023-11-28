@@ -68,9 +68,30 @@ namespace MyString
         }
 
         //String.EndsWith()
-        public string? EndsWith()
+        public bool EndsWith(string? text)
         {
-            string? endsWith = null;
+            bool endsWith = false;
+
+            if (text != null)
+            {
+                var textLength = text.Length;
+                var valueLength = this._value.Length;
+                if (textLength <= valueLength)
+                {
+                    for (int i = 0; i < textLength; i++)
+                    {
+                        if (MyString.At(i, text) != MyString.At(valueLength - (textLength - i), this._value))
+                        {
+                            break;
+                        }
+                        if (i + 1 == textLength)
+                        {
+                            endsWith = true;
+                        }
+                    }
+                }
+            }
+
             return endsWith;
         }
 
