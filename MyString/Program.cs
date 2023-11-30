@@ -6,13 +6,10 @@ namespace MyString
     {
         static void Main(string[] args)
         {
-            var text = "Hello World!";
-            var testPositive = "ld!";
-            var testNegative = "Check";
-            var sameText = "Hello World!";
-            var longText = "Check Hello World!";
+            string? s = "hi";
+            s += " ";
 
-            Console.WriteLine(new String(text).EndsWith(sameText));
+            Console.WriteLine(s);
         }
     }
 }

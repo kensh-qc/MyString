@@ -3,22 +3,6 @@ namespace MyString.UnitTests
     [TestClass]
     public class MyStringUnitTest
     {
-        [TestMethod, TestCategory("At")]
-        public void AtTest()
-        {
-            var str = "Hello";
-
-            Assert.AreEqual("H", MyString.At(0, str), "At test positive within range, 0");
-            Assert.AreEqual("l", MyString.At(3, str), "At test positive within range, 3");
-            Assert.AreEqual("o", MyString.At(4, str), "At test positive within range, 4");
-            Assert.IsNull(MyString.At(100, str), "At test positive outside range, 100");
-            Assert.IsNull(MyString.At(-100, str), "At test negative outside range, -100");
-            Assert.AreEqual("o", MyString.At(-1, str), "At test negative within range, -1");
-            Assert.AreEqual("l", MyString.At(-2, str), "At test negative within range, -2");
-            Assert.AreEqual("e", MyString.At(-4, str), "At test negative within range, -4");
-            Assert.AreEqual("H", MyString.At(-5, str), "At test negative within range, -5");
-        }
-
         [TestMethod, TestCategory("Concat")]
         public void ConcatTest()
         {
@@ -71,7 +55,11 @@ namespace MyString.UnitTests
             var sameText = "Hello World!";
             var longText = "Check Hello World!";
 
-            Assert.AreEqual(stringObj.EndsWith(testPositive), myString.EndsWith(testPositive), "EndsWith test positive, 3 chars");
+            Assert.AreEqual(
+                stringObj.EndsWith(testPositive),
+                myString.EndsWith(testPositive),
+                "EndsWith test positive, 3 chars"
+            );
             Assert.AreEqual(stringObj.EndsWith(testNegative), myString.EndsWith(testNegative), "EndsWith test negative");
             Assert.AreEqual(stringObj.EndsWith(longText), myString.EndsWith(longText), "EndsWith test too long text");
             Assert.AreEqual(stringObj.EndsWith(sameText), myString.EndsWith(sameText), "EndsWith test same text");
@@ -80,20 +68,16 @@ namespace MyString.UnitTests
         [TestMethod, TestCategory("IndexOf")]
         public void IndexOfTest()
         {
-            var text = "Hello World!";
-            var myString = new MyString(text);
-            var stringObj = new String(text);
-            var searchPositiveOneChar = "e";
-            var searchPositiveMultipleChars = "ld!";
-            var searchNegativeOneChar = "a";
-            var searchNegativeMultipleChars = "ld.";
-            var searchNegativeAllMultipleChars = "Ae";
+            var myString = new MyString("Hello World!");
+            var stringObj = new String("Hello World!");
 
-            Assert.AreEqual(stringObj.IndexOf(searchPositiveOneChar), myString.IndexOf(searchPositiveOneChar), "One Char");
-            Assert.AreEqual(stringObj.IndexOf(searchPositiveMultipleChars), myString.IndexOf(searchPositiveMultipleChars), "Multiple Chars");
-            Assert.AreEqual(stringObj.IndexOf(searchNegativeOneChar), myString.IndexOf(searchNegativeOneChar), "Negative one Char");
-            Assert.AreEqual(stringObj.IndexOf(searchNegativeMultipleChars), myString.IndexOf(searchNegativeMultipleChars), "Negative multiple Chars");
-            Assert.AreEqual(stringObj.IndexOf(searchNegativeAllMultipleChars), myString.IndexOf(searchNegativeAllMultipleChars), "Negative all multiple Chars");
+            Assert.AreEqual(stringObj.IndexOf("e"), myString.IndexOf("e"), "e");
+            Assert.AreEqual(stringObj.IndexOf("ld!"), myString.IndexOf("ld!"), "ld!");
+            Assert.AreEqual(stringObj.IndexOf("World"), myString.IndexOf("World"), "World");
+            Assert.AreEqual(stringObj.IndexOf("WorldDDD"), myString.IndexOf("WorldDDD"), "WorldDDD");
+            Assert.AreEqual(stringObj.IndexOf("a"), myString.IndexOf("a"), "a");
+            Assert.AreEqual(stringObj.IndexOf("ld."), myString.IndexOf("ld."), "ld.");
+            Assert.AreEqual(stringObj.IndexOf("Ae"), myString.IndexOf("Ae"), "Ae");
         }
     }
 }

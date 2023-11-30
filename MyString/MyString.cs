@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace MyString
@@ -9,42 +10,6 @@ namespace MyString
         public MyString(string value)
         {
             this._value = value;
-        }
-
-        //String.At() - Similar to JS String method
-        public static string? At(int index, string? text)
-        {
-            string? stringAt = null;
-            if (text != null)
-            {
-                if (index >= 0)
-                {
-
-                    for (int i = 0; i < text.Length; i++)
-                    {
-                        if (i == index)
-                        {
-                            stringAt = text[i].ToString();
-                            break;
-                        }
-                    }
-
-                }
-                else
-                {
-                    for (int i = -1; i >= -text.Length; i--)
-                    {
-                        if (i == index)
-                        {
-                            stringAt = text[text.Length + i].ToString();
-                            break;
-                        }
-                    }
-
-                }
-
-            }
-            return stringAt;
         }
 
         //String.Concat()
@@ -58,7 +23,7 @@ namespace MyString
                 {
                     if (item != null)
                     {
-                        sb.Append(item.ToString());
+                        sb.Append(item);
                     }
                 }
 
@@ -83,26 +48,25 @@ namespace MyString
         //String.EndsWith()
         public bool EndsWith(string text)
         {
-            bool endsWith = false;
+            bool isEndsWith = false;
 
-            var textLength = text.Length;
-            var valueLength = this._value.Length;
-            if (textLength <= valueLength)
+            if (text.Length <= this._value.Length)
             {
-                for (int i = 0; i < textLength; i++)
+                for (int i = 0; i < text.Length; i++)
                 {
-                    if (MyString.At(i, text) != MyString.At(valueLength - (textLength - i), this._value))
+                    if (text[i] != this._value[this._value.Length - (text.Length - i)])
                     {
                         break;
                     }
-                    if (i + 1 == textLength)
+
+                    if (i + 1 == text.Length)
                     {
-                        endsWith = true;
+                        isEndsWith = true;
                     }
                 }
             }
 
-            return endsWith;
+            return isEndsWith;
         }
 
         //String.Join()
@@ -113,11 +77,15 @@ namespace MyString
             if (text.Length > 0)
             {
                 var sb = new StringBuilder();
+
                 foreach (var item in text)
                 {
                     if (item != null)
                     {
-                        if (separator != null && sb.Length > 0) sb.Append(separator);
+                        if (separator != null && sb.Length > 0)
+                        {
+                            sb.Append(separator);
+                        }
                         sb.Append(item);
                     }
 
@@ -132,62 +100,209 @@ namespace MyString
         //String.IndexOf()
         public int IndexOf(string toFind)
         {
-            var index = -1;
+            var startIndex = -1;
+            var currentIndex = 0;
             bool matchInProgress = false;
 
             for (int i = 0; i < this._value.Length; i++)
             {
                 if (toFind[0] == this._value[i] && !matchInProgress)
                 {
-                    index = i;
-                    matchInProgress = true;
-                    if (toFind.Length > 1)
-                    {
-                        for (int j = 0, f = i; j < toFind.Length; j++, f++)
-                        {
-                            if (toFind[j] == this._value[f])
-                            {
-                                if (j + 1 < toFind.Length) matchInProgress = false;
-                                continue;
-                            }
-                            else if (toFind[j] != this._value[f])
-                            {
-                                index = -1;
-                                matchInProgress = false;
-                                break;
-                            }
+                    startIndex = i;
 
+                    if (toFind.Length == 1)
+                    {
+                        break;
+                    }
+
+                    currentIndex = 1;
+                    matchInProgress = true;
+                }
+                else if (matchInProgress)
+                {
+                    if (toFind[currentIndex] == this._value[i])
+                    {
+                        if (currentIndex + 1 < toFind.Length)
+                        {
+                            currentIndex++;
+                            continue;
+                        }
+                        else if (currentIndex + 1 == toFind.Length)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            startIndex = -1;
+                            break;
                         }
                     }
                     else
                     {
+                        if (toFind.Length >= this._value.Length - i)
+                        {
+                            startIndex = -1;
+                            break;
+                        }
+                        else
+                        {
+                            matchInProgress = false;
+                            continue;
+                        }
+
+                    }
+                }
+                else
+                {
+                    if (this._value.Length - i >= toFind.Length)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        startIndex = -1;
                         break;
                     }
                 }
-                else if (matchInProgress)
-                {
-                    index = -1;
-                    break;
-                }
+
             }
 
-            return index;
+            return startIndex;
         }
 
-        //String.prototype.lastIndexOf()
-        //String.prototype.padEnd()
-        //String.prototype.padStart()
-        //String.prototype.repeat()
-        //String.prototype.replace() console.log(paragraph.replace("Ruth's", 'my'));
-        // Expected output: "I think my dog is cuter than your dog!"
-        //String.prototype.replaceAll() console.log(paragraph.replaceAll('dog', 'monkey'));
-        // Expected output: "I think Ruth's monkey is cuter than your monkey!"
-        //String.prototype.slice()
-        //String.prototype.split()
-        //String.prototype.startsWith()
-        //String.prototype.substring()
-        //String.prototype.trim()
-        //String.prototype.trimEnd()
-        //String.prototype.trimStart()
+        public string Insert(int startIndex, string value)
+        {
+            throw new NotImplementedException();
+        }
+        public static bool IsNullOrEmpty(string? value)
+        {
+            throw new NotImplementedException();
+        }
+        public static bool IsNullOrWhiteSpace(string? value)
+        {
+            throw new NotImplementedException();
+        }
+        public int LastIndexOf(string value)
+        {
+            throw new NotImplementedException();
+        }
+        public string PadLeft(int totalWidth)
+        {
+            throw new NotImplementedException();
+        }
+        public string PadLeft(int totalWidth, char paddingChar)
+        {
+            throw new NotImplementedException();
+        }
+        public string PadRight(int totalWidth)
+        {
+            throw new NotImplementedException();
+        }
+        public string PadRight(int totalWidth, char paddingChar)
+        {
+            throw new NotImplementedException();
+        }
+        public string Remove(int startIndex)
+        {
+            throw new NotImplementedException();
+        }
+        public string Remove(int startIndex, int count)
+        {
+            throw new NotImplementedException();
+        }
+        public string Replace(string oldValue, string? newValue)
+        {
+            throw new NotImplementedException();
+        }
+        public string ReplaceLineEndings()
+        {
+            //Environment.NewLine;
+            throw new NotImplementedException();
+        }
+        public string ReplaceLineEndings(string replacementText)
+        {
+            throw new NotImplementedException();
+        }
+        public string[] Split(params char[]? separator)
+        {
+            //Array.Resize
+            throw new NotImplementedException();
+        }
+        public bool StartsWith(string value)
+        {
+            throw new NotImplementedException();
+        }
+        public string Substring(int startIndex)
+        {
+            throw new NotImplementedException();
+        }
+        public string Substring(int startIndex, int length)
+        {
+            throw new NotImplementedException();
+        }
+        public char[] ToCharArray(int startIndex, int length)
+        {
+            throw new NotImplementedException();
+        }
+        public char[] ToCharArray()
+        {
+            throw new NotImplementedException();
+        }
+        public string Trim()
+        {
+            throw new NotImplementedException();
+        }
+        public string Trim(params char[]? trimChars)
+        {
+            throw new NotImplementedException();
+        }
+        public string Trim(char trimChar)
+        {
+            throw new NotImplementedException();
+        }
+        public string TrimEnd()
+        {
+            throw new NotImplementedException();
+        }
+        public string TrimEnd(char trimChar)
+        {
+            throw new NotImplementedException();
+        }
+        public string TrimEnd(params char[]? trimChars)
+        {
+            throw new NotImplementedException();
+        }
+        public string TrimStart()
+        {
+            throw new NotImplementedException();
+        }
+        public string TrimStart(char trimChar)
+        {
+            throw new NotImplementedException();
+        }
+        public string TrimStart(params char[]? trimChars)
+        {
+            throw new NotImplementedException();
+        }
+        public static bool operator ==(MyString? a, MyString? b)
+        {
+            throw new NotImplementedException();
+        }
+        public static bool operator !=(MyString? a, MyString? b)
+        {
+            throw new NotImplementedException();
+        }
+        public static bool operator ==(MyString? a, string? b)
+        {
+            throw new NotImplementedException();
+        }
+        public static bool operator !=(MyString? a, string? b)
+        {
+            throw new NotImplementedException();
+        }
+        public static bool operator *(MyString? a, int b)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
