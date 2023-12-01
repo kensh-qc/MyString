@@ -100,71 +100,70 @@ namespace MyString
         //String.IndexOf()
         public int IndexOf(string toFind)
         {
+            //Console.WriteLine($"[START] \"{this._value}\" IndexOf \"{toFind}\"");
             var startIndex = -1;
             var currentIndex = 0;
+            var sbIndex = 0;
             bool matchInProgress = false;
 
-            for (int i = 0; i < this._value.Length; i++)
+            var sb = new StringBuilder(this._value);
+
+            // "Hello".IndexOf("") && "".IndexOf("")
+            if (toFind.Length == 0)
             {
-                if (toFind[0] == this._value[i] && !matchInProgress)
+                startIndex++;
+                //Console.WriteLine($"[STOP] Found \"{this._value}\" indexOf \"{toFind}\" {startIndex}");
+                return startIndex;
+            }
+            // "a".IndexOf("abc")
+            else if (toFind.Length > this._value.Length)
+            {
+                //Console.WriteLine($"[STOP] NOT Found \"{this._value}\" indexOf \"{toFind}\" {startIndex}");
+                return startIndex;
+            }
+
+            for (var i = 0; i < this._value.Length; i++)
+            {
+                if (!matchInProgress && sb[sbIndex] == toFind[currentIndex])
                 {
                     startIndex = i;
-
-                    if (toFind.Length == 1)
+                    if (currentIndex == toFind.Length - 1)
                     {
-                        break;
+                        //Console.WriteLine($"[STOP] Found \"{this._value}\" indexOf \"{toFind}\" {startIndex}");
+                        break; //Found!
                     }
-
-                    currentIndex = 1;
                     matchInProgress = true;
                 }
                 else if (matchInProgress)
                 {
-                    if (toFind[currentIndex] == this._value[i])
-                    {
-                        if (currentIndex + 1 < toFind.Length)
-                        {
-                            currentIndex++;
-                            continue;
-                        }
-                        else if (currentIndex + 1 == toFind.Length)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            startIndex = -1;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        if (toFind.Length >= this._value.Length - i)
-                        {
-                            startIndex = -1;
-                            break;
-                        }
-                        else
-                        {
-                            matchInProgress = false;
-                            continue;
-                        }
+                    currentIndex++;
+                    sbIndex++;
 
-                    }
-                }
-                else
-                {
-                    if (this._value.Length - i >= toFind.Length)
+                    if (sb[sbIndex] == toFind[currentIndex] && currentIndex == toFind.Length - 1)
                     {
-                        continue;
+                        //Console.WriteLine($"[STOP] Found \"{this._value}\" indexOf \"{toFind}\" {startIndex}");
+                        break; //Found!
                     }
-                    else
+                    else if (sb[sbIndex] != toFind[currentIndex] && sbIndex == sb.Length - 1)
                     {
                         startIndex = -1;
-                        break;
+                        //Console.WriteLine($"[STOP] NOT Found \"{this._value}\" indexOf \"{toFind}\" {startIndex}");
+                        break; //Not found;
+                    }
+
+                    if (sb[sbIndex] != toFind[currentIndex])
+                    {
+                        i = startIndex - 1;
+                        startIndex = -1;
+                        matchInProgress = false;
                     }
                 }
-
+                else if (!matchInProgress)
+                {
+                    sb.Remove(0, 1);
+                    sbIndex = 0;
+                    currentIndex = 0;
+                }
             }
 
             return startIndex;

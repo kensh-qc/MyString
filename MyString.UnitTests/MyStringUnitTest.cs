@@ -68,16 +68,24 @@ namespace MyString.UnitTests
         [TestMethod, TestCategory("IndexOf")]
         public void IndexOfTest()
         {
-            var myString = new MyString("Hello World!");
-            var stringObj = new String("Hello World!");
-
-            Assert.AreEqual(stringObj.IndexOf("e"), myString.IndexOf("e"), "e");
-            Assert.AreEqual(stringObj.IndexOf("ld!"), myString.IndexOf("ld!"), "ld!");
-            Assert.AreEqual(stringObj.IndexOf("World"), myString.IndexOf("World"), "World");
-            Assert.AreEqual(stringObj.IndexOf("WorldDDD"), myString.IndexOf("WorldDDD"), "WorldDDD");
-            Assert.AreEqual(stringObj.IndexOf("a"), myString.IndexOf("a"), "a");
-            Assert.AreEqual(stringObj.IndexOf("ld."), myString.IndexOf("ld."), "ld.");
-            Assert.AreEqual(stringObj.IndexOf("Ae"), myString.IndexOf("Ae"), "Ae");
+            Assert.AreEqual(new String("Hello").IndexOf("e"), new MyString("Hello").IndexOf("e"), "Hello, e");
+            Assert.AreEqual(new String("Hello World!").IndexOf("ld!"), new MyString("Hello World!").IndexOf("ld!"), "Hello World!, ld!");
+            Assert.AreEqual(new String("Hello World!").IndexOf("World"), new MyString("Hello World!").IndexOf("World"), "Hello World!, World");
+            Assert.AreEqual(new String("Hello World!").IndexOf("WorldDDD"), new MyString("Hello World!").IndexOf("WorldDDD"), "Hello World!, WorldDDD");
+            Assert.AreEqual(new String("Hello World!").IndexOf("a"), new MyString("Hello World!").IndexOf("a"), "Hello World!, a");
+            Assert.AreEqual(new String("Hello World!").IndexOf("ld."), new MyString("Hello World!").IndexOf("ld."), "Hello World!, ld.");
+            Assert.AreEqual(new String("Hello World!").IndexOf("Ae"), new MyString("Hello World!").IndexOf("Ae"), "Hello World!, Ae");
+            Assert.AreEqual(new String("Hello").IndexOf("Hello"), new MyString("Hello").IndexOf("Hello"), "Hello");
+            Assert.AreEqual(new String("a").IndexOf("a"), new MyString("a").IndexOf("a"), "a");
+            Assert.AreEqual(new String("ababababc").IndexOf("abc"), new MyString("ababababc").IndexOf("abc"), "ababababc, abc");
+            Assert.AreEqual(new String("ababababc").IndexOf("bab"), new MyString("ababababc").IndexOf("bab"), "ababababc, bab");
+            Assert.AreEqual(new String("").IndexOf(""), new MyString("").IndexOf(""), "(empty string value and indexOf)");
+            Assert.AreEqual(new String("aaaabc").IndexOf("aabc"), new MyString("aaaabc").IndexOf("aabc"), "(aaaabc, aabc)");
+            Assert.AreEqual(new String("aaaaabc").IndexOf("aaabc"), new MyString("aaaaabc").IndexOf("aaabc"), "(aaaaabc, aaabc)");
+            Assert.AreEqual(new String("Hello").IndexOf(""), new MyString("Hello").IndexOf(""), "(empty string)");
+            Assert.AreEqual(new String("a").IndexOf("abc"), new MyString("a").IndexOf("abc"), "abc");
+            Assert.AreEqual(new String("abcabcd").IndexOf("abcd"), new MyString("abcabcd").IndexOf("abcd"), "abcd");
+            Assert.AreEqual(new String("abcdeabcda").IndexOf("abcda"), new MyString("abcdeabcda").IndexOf("abcda"), "abcda");
         }
     }
 }

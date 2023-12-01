@@ -6,10 +6,8 @@ namespace MyString
     {
         static void Main(string[] args)
         {
-            string? s = "hi";
-            s += " ";
 
-            Console.WriteLine(s);
+            Console.WriteLine(new String("a").IndexOf("abc"));
         }
     }
 }
