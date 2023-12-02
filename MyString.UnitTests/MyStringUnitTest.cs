@@ -104,5 +104,14 @@ namespace MyString.UnitTests
             Assert.AreEqual(9, new MyString("Hello World").IndexOfFuzzy("*d"), "Hello World, *d");
             Assert.AreEqual(9, new MyString("Hello World").IndexOfFuzzy("[d", '['), "Hello World, [d");
         }
+
+        [TestMethod, TestCategory("Insert")]
+        public void Insert()
+        {
+            Assert.AreEqual(new String("hello ").Insert(6, "world"), new MyString("hello ").Insert(6, "world"));
+            Assert.AreEqual(new String("hello ").Insert(6, ""), new MyString("hello ").Insert(6, ""));
+            Assert.AreEqual(new String("hello ").Insert(0, "Test"), new MyString("hello ").Insert(0, "Test"));
+            Assert.AreEqual(new String("hello test message").Insert(6, "world"), new MyString("hello test message").Insert(6, "world"));
+        }
     }
 }

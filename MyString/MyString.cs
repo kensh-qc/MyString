@@ -171,6 +171,8 @@ namespace MyString
             var sbIndex = 0;
             bool matchInProgress = false;
             var sb = new StringBuilder(this._value);
+            //var sb = StringBuilderCache.Acquire(this._value.Length);
+            //sb.Append(_value);
 
             for (var i = 0; i < this._value.Length; i++)
             {
@@ -213,6 +215,7 @@ namespace MyString
                 }
             }
 
+            //StringBuilderCache.GetStringAndRelease(sb);
             return startIndex;
         }
         // String.IndexOfFuzzy()
@@ -243,10 +246,28 @@ namespace MyString
 
             return -1;
         }
-
-        public string Insert(int startIndex, string value)
+        // String.Insert()
+        public string Insert(int startIndex, string query)
         {
-            throw new NotImplementedException();
+            if (query.Length == 0)
+            {
+                return _value;
+            }
+            else if (query.Length > _value.Length)
+            {
+
+            }
+
+            var result = new StringBuilder(_value);
+            var end = new StringBuilder(_value);
+
+            result.Remove(startIndex, _value.Length - startIndex);
+            result.Append(query);
+
+            end.Remove(0, startIndex);
+            result.Append(end);
+
+            return result.ToString();
         }
         public static bool IsNullOrEmpty(string? value)
         {
