@@ -356,13 +356,26 @@ namespace MyString
 
             return startIndex;
         }
-        public string PadLeft(int totalWidth)
+        public string PadLeft(int totalWidth) => PadLeft(totalWidth, ' ');
+        public string PadLeft(int totalWidth, char padChar)
         {
-            throw new NotImplementedException();
-        }
-        public string PadLeft(int totalWidth, char paddingChar)
-        {
-            throw new NotImplementedException();
+            ArgumentOutOfRangeException.ThrowIfNegative(totalWidth);
+
+            var sb = new StringBuilder();
+            var padCount = totalWidth - _value.Length;
+
+            if (padCount <= 0)
+            {
+                return _value;
+            }
+
+            for (int i = 0; i < padCount; i++)
+            {
+                sb.Append(padChar);
+            }
+            sb.Append(_value);
+
+            return sb.ToString();
         }
         public string PadRight(int totalWidth)
         {

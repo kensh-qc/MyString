@@ -152,5 +152,17 @@ namespace MyString.UnitTests
             Assert.AreEqual(String.IsNullOrEmpty(null), MyString.IsNullOrEmpty(null));
             Assert.AreEqual(String.IsNullOrEmpty("test"), MyString.IsNullOrEmpty("test"));
         }
+
+        [TestMethod, TestCategory("PadLeft")]
+        public void PadLeft()
+        {
+            Assert.AreEqual(new String("Hello").PadLeft(4), new MyString("Hello").PadLeft(4));
+            Assert.AreEqual(new String("Hello").PadLeft(7), new MyString("Hello").PadLeft(7));
+            Assert.AreEqual(new String("Hello").PadLeft(20), new MyString("Hello").PadLeft(20));
+            Assert.AreEqual(new String("Hello").PadLeft(0), new MyString("Hello").PadLeft(0));
+            Assert.AreEqual(new String("Hello").PadLeft(8, '*'), new MyString("Hello").PadLeft(8, '*'));
+            Assert.AreEqual(new String("Hello").PadLeft(0, '*'), new MyString("Hello").PadLeft(0, '*'));
+            //Assert.AreEqual(new String("Hello").PadLeft(-1), new MyString("Hello").PadLeft(-1));
+        }
     }
 }
