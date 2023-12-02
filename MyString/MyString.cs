@@ -282,7 +282,14 @@ namespace MyString
         }
         public static bool IsNullOrWhiteSpace(string? value)
         {
-            throw new NotImplementedException();
+            if (value is null || value.Length == 1 && value[0] == ' ')
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public int LastIndexOf(string value)
         {

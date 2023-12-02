@@ -121,5 +121,13 @@ namespace MyString.UnitTests
             Assert.AreEqual(String.IsNullOrEmpty(null), MyString.IsNullOrEmpty(null));
             Assert.AreEqual(String.IsNullOrEmpty("test"), MyString.IsNullOrEmpty("test"));
         }
+
+        [TestMethod, TestCategory("IsNullOrWhiteSpace")]
+        public void IsNullOrWhiteSpaceTest()
+        {
+            Assert.AreEqual(String.IsNullOrEmpty(" "), MyString.IsNullOrEmpty(" "));
+            Assert.AreEqual(String.IsNullOrEmpty(null), MyString.IsNullOrEmpty(null));
+            Assert.AreEqual(String.IsNullOrEmpty("test"), MyString.IsNullOrEmpty("test"));
+        }
     }
 }
