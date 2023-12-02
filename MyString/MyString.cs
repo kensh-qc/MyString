@@ -377,13 +377,26 @@ namespace MyString
 
             return sb.ToString();
         }
-        public string PadRight(int totalWidth)
+        public string PadRight(int totalWidth) => PadRight(totalWidth, ' ');
+        public string PadRight(int totalWidth, char padChar)
         {
-            throw new NotImplementedException();
-        }
-        public string PadRight(int totalWidth, char paddingChar)
-        {
-            throw new NotImplementedException();
+            ArgumentOutOfRangeException.ThrowIfNegative(totalWidth);
+
+            var sb = new StringBuilder();
+            var padCount = totalWidth - _value.Length;
+
+            if (padCount <= 0)
+            {
+                return _value;
+            }
+
+            sb.Append(_value);
+            for (int i = 0; i < padCount; i++)
+            {
+                sb.Append(padChar);
+            }
+
+            return sb.ToString();
         }
         public string Remove(int startIndex)
         {

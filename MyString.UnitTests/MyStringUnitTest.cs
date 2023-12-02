@@ -162,7 +162,17 @@ namespace MyString.UnitTests
             Assert.AreEqual(new String("Hello").PadLeft(0), new MyString("Hello").PadLeft(0));
             Assert.AreEqual(new String("Hello").PadLeft(8, '*'), new MyString("Hello").PadLeft(8, '*'));
             Assert.AreEqual(new String("Hello").PadLeft(0, '*'), new MyString("Hello").PadLeft(0, '*'));
-            //Assert.AreEqual(new String("Hello").PadLeft(-1), new MyString("Hello").PadLeft(-1));
+        }
+
+        [TestMethod, TestCategory("PadRight")]
+        public void PadRight()
+        {
+            Assert.AreEqual(new String("Hello").PadRight(4), new MyString("Hello").PadRight(4));
+            Assert.AreEqual(new String("Hello").PadRight(7), new MyString("Hello").PadRight(7));
+            Assert.AreEqual(new String("Hello").PadRight(20), new MyString("Hello").PadRight(20));
+            Assert.AreEqual(new String("Hello").PadRight(0), new MyString("Hello").PadRight(0));
+            Assert.AreEqual(new String("Hello").PadRight(8, '*'), new MyString("Hello").PadRight(8, '*'));
+            Assert.AreEqual(new String("Hello").PadRight(0, '*'), new MyString("Hello").PadRight(0, '*'));
         }
     }
 }
