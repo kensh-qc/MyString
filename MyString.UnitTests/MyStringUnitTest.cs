@@ -88,6 +88,29 @@ namespace MyString.UnitTests
             Assert.AreEqual(new String("abcdeabcda").IndexOf("abcda"), new MyString("abcdeabcda").IndexOf("abcda"), "abcda");
         }
 
+        [TestMethod, TestCategory("LastIndexOf")]
+        public void LastIndexOfTest()
+        {
+            Assert.AreEqual(new String("Hello").LastIndexOf("e"), new MyString("Hello").LastIndexOf("e"), "Hello, e");
+            Assert.AreEqual(new String("Hello World!").LastIndexOf("ld!"), new MyString("Hello World!").LastIndexOf("ld!"), "Hello World!, ld!");
+            Assert.AreEqual(new String("Hello World!").LastIndexOf("World"), new MyString("Hello World!").LastIndexOf("World"), "Hello World!, World");
+            Assert.AreEqual(new String("Hello World!").LastIndexOf("WorldDDD"), new MyString("Hello World!").LastIndexOf("WorldDDD"), "Hello World!, WorldDDD");
+            Assert.AreEqual(new String("Hello World!").LastIndexOf("a"), new MyString("Hello World!").LastIndexOf("a"), "Hello World!, a");
+            Assert.AreEqual(new String("Hello World!").LastIndexOf("ld."), new MyString("Hello World!").LastIndexOf("ld."), "Hello World!, ld.");
+            Assert.AreEqual(new String("Hello World!").LastIndexOf("Ae"), new MyString("Hello World!").LastIndexOf("Ae"), "Hello World!, Ae");
+            Assert.AreEqual(new String("Hello").LastIndexOf("Hello"), new MyString("Hello").LastIndexOf("Hello"), "Hello, Hello");
+            Assert.AreEqual(new String("a").LastIndexOf("a"), new MyString("a").LastIndexOf("a"), "a");
+            Assert.AreEqual(new String("ababababc").LastIndexOf("abc"), new MyString("ababababc").LastIndexOf("abc"), "ababababc, abc");
+            Assert.AreEqual(new String("ababababc").LastIndexOf("bab"), new MyString("ababababc").LastIndexOf("bab"), "ababababc, bab");
+            Assert.AreEqual(new String("").LastIndexOf(""), new MyString("").LastIndexOf(""), "(empty string value and indexOf)");
+            Assert.AreEqual(new String("aaaabc").LastIndexOf("aabc"), new MyString("aaaabc").LastIndexOf("aabc"), "(aaaabc, aabc)");
+            Assert.AreEqual(new String("aaaaabc").LastIndexOf("aaabc"), new MyString("aaaaabc").LastIndexOf("aaabc"), "(aaaaabc, aaabc)");
+            Assert.AreEqual(new String("Hello").LastIndexOf(""), new MyString("Hello").LastIndexOf(""), "(empty string)");
+            Assert.AreEqual(new String("a").LastIndexOf("abc"), new MyString("a").LastIndexOf("abc"), "abc");
+            Assert.AreEqual(new String("abcabcd").LastIndexOf("abcd"), new MyString("abcabcd").LastIndexOf("abcd"), "abcd");
+            Assert.AreEqual(new String("abcdeabcda").LastIndexOf("abcda"), new MyString("abcdeabcda").LastIndexOf("abcda"), "abcda");
+        }
+
         [TestMethod, TestCategory("IndexOfFuzzy")]
         public void IndexOfFuzzyTest()
         {

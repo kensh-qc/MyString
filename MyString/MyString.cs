@@ -171,8 +171,6 @@ namespace MyString
             var sbIndex = 0;
             bool matchInProgress = false;
             var sb = new StringBuilder(this._value);
-            //var sb = StringBuilderCache.Acquire(this._value.Length);
-            //sb.Append(_value);
 
             for (var i = 0; i < this._value.Length; i++)
             {
@@ -215,7 +213,6 @@ namespace MyString
                 }
             }
 
-            //StringBuilderCache.GetStringAndRelease(sb);
             return startIndex;
         }
         // String.IndexOfFuzzy()
@@ -291,9 +288,73 @@ namespace MyString
                 return false;
             }
         }
-        public int LastIndexOf(string value)
+        public int LastIndexOf(string toFind)
         {
-            throw new NotImplementedException();
+            // "".LastIndexOf("")
+            if (toFind.Length == 0 && _value.Length == 0)
+            {
+                return 0;
+            }
+            // "Hello".LastIndexOf("")
+            else if (toFind.Length == 0 && _value.Length > 0)
+            {
+                return _value.Length;
+            }
+            // "a".LastIndexOf("abc")
+            else if (toFind.Length > this._value.Length)
+            {
+                return -1;
+            }
+
+            var startIndex = -1;
+            var currentIndex = toFind.Length - 1;
+            var sbIndex = _value.Length - 1;
+            bool matchInProgress = false;
+            var sb = new StringBuilder(this._value);
+
+            for (var i = this._value.Length - 1; i >= 0; i--)
+            {
+                if (!matchInProgress && sb[sbIndex] == toFind[currentIndex])
+                {
+                    startIndex = i;
+                    if (currentIndex == 0)
+                    {
+                        break; // Found
+                    }
+                    matchInProgress = true;
+                }
+                else if (matchInProgress)
+                {
+                    currentIndex--;
+                    sbIndex--;
+
+                    if (sb[sbIndex] == toFind[currentIndex] && currentIndex == 0)
+                    {
+                        startIndex = i;
+                        break; // Found
+                    }
+                    else if (sb[sbIndex] != toFind[currentIndex] && sbIndex == 0)
+                    {
+                        startIndex = -1;
+                        break; // Not found
+                    }
+
+                    if (sb[sbIndex] != toFind[currentIndex])
+                    {
+                        i = startIndex - 1;
+                        startIndex = -1;
+                        matchInProgress = false;
+                    }
+                }
+                else if (!matchInProgress)
+                {
+                    sb.Remove(sb.ToString().Length - 1, 1);
+                    sbIndex = sb.ToString().Length - 1;
+                    currentIndex = toFind.Length - 1;
+                }
+            }
+
+            return startIndex;
         }
         public string PadLeft(int totalWidth)
         {
