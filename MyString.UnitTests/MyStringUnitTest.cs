@@ -87,5 +87,22 @@ namespace MyString.UnitTests
             Assert.AreEqual(new String("abcabcd").IndexOf("abcd"), new MyString("abcabcd").IndexOf("abcd"), "abcd");
             Assert.AreEqual(new String("abcdeabcda").IndexOf("abcda"), new MyString("abcdeabcda").IndexOf("abcda"), "abcda");
         }
+
+        [TestMethod, TestCategory("IndexOfFuzzy")]
+        public void IndexOfFuzzyTest()
+        {
+            // "Hello World"
+            // "*ello" indexOfFuzzy == 0
+            Assert.AreEqual(0, new MyString("").IndexOfFuzzy(""), "empty string, empty string");
+            Assert.AreEqual(0, new MyString("*").IndexOfFuzzy(""), "*, empty string");
+            Assert.AreEqual(-1, new MyString("Hello").IndexOfFuzzy("*d"), "Hello, *d");
+            Assert.AreEqual(0, new MyString("Hello World").IndexOfFuzzy("*ello"), "Hello World, *ello");
+            Assert.AreEqual(3, new MyString("Hello World").IndexOfFuzzy("*o***"), "Hello World, *o***");
+            Assert.AreEqual(0, new MyString("Hello World").IndexOfFuzzy("*****"), "Hello World, *****");
+            Assert.AreEqual(0, new MyString("Hello World").IndexOfFuzzy("*"), "Hello World, *");
+            Assert.AreEqual(0, new MyString("*").IndexOfFuzzy("*"), "*, *");
+            Assert.AreEqual(9, new MyString("Hello World").IndexOfFuzzy("*d"), "Hello World, *d");
+            Assert.AreEqual(9, new MyString("Hello World").IndexOfFuzzy("[d", '['), "Hello World, [d");
+        }
     }
 }

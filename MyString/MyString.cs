@@ -12,7 +12,7 @@ namespace MyString
             this._value = value;
         }
 
-        //String.Concat()
+        // String.Concat()
         public static string Concat(params string?[] text)
         {
             string concatStr = "";
@@ -33,7 +33,7 @@ namespace MyString
             return concatStr;
         }
 
-        //String.Contains()
+        // String.Contains()
         public bool Contains(string text)
         {
             bool contains = false;
@@ -45,7 +45,7 @@ namespace MyString
             return contains;
         }
 
-        //String.EndsWith()
+        // String.EndsWith()
         public bool EndsWith(string text)
         {
             bool isEndsWith = false;
@@ -69,7 +69,7 @@ namespace MyString
             return isEndsWith;
         }
 
-        //String.Join()
+        // String.Join()
         public static string Join(string? separator, params string?[] text)
         {
             string joinStr = "";
@@ -96,31 +96,81 @@ namespace MyString
 
             return joinStr;
         }
+        // String.IndexOf3()
+        public int IndexOf3(string query)
+        {
+            if (query.Length == 0)
+            {
+                return 0;
+            }
 
-        //String.IndexOf()
+            for (var i = 0; i < _value.Length; i++)
+            {
+                if (i < query.Length - 1) continue;
+
+                for (int c = 0; c < query.Length; c++)
+                {
+                    if (_value[i - ((query.Length - 1) - c)] != query[c])
+                    {
+                        break;
+                    }
+
+                    if (c == query.Length - 1)
+                    {
+                        return i - (query.Length - 1);
+                    }
+                }
+            }
+
+            return -1;
+        }
+        // String.IndexOf2()
+        public int IndexOf2(string query)
+        {
+            if (query.Length == 0)
+            {
+                return 0;
+            }
+
+            var sb = new StringBuilder();
+
+            for (var i = 0; i < _value.Length; i++)
+            {
+                sb.Append(_value[i]);
+
+                if (sb.Length == query.Length)
+                {
+                    if (sb.ToString() == query)
+                    {
+                        return i - (query.Length - 1);
+                    }
+
+                    sb.Remove(0, 1);
+                }
+
+            }
+
+            return -1;
+        }
+        // String.IndexOf()
         public int IndexOf(string toFind)
         {
-            //Console.WriteLine($"[START] \"{this._value}\" IndexOf \"{toFind}\"");
-            var startIndex = -1;
-            var currentIndex = 0;
-            var sbIndex = 0;
-            bool matchInProgress = false;
-
-            var sb = new StringBuilder(this._value);
-
             // "Hello".IndexOf("") && "".IndexOf("")
             if (toFind.Length == 0)
             {
-                startIndex++;
-                //Console.WriteLine($"[STOP] Found \"{this._value}\" indexOf \"{toFind}\" {startIndex}");
-                return startIndex;
+                return 0;
             }
             // "a".IndexOf("abc")
             else if (toFind.Length > this._value.Length)
             {
-                //Console.WriteLine($"[STOP] NOT Found \"{this._value}\" indexOf \"{toFind}\" {startIndex}");
-                return startIndex;
+                return -1;
             }
+
+            var startIndex = -1;
+            var currentIndex = 0;
+            var sbIndex = 0;
+            bool matchInProgress = false;
+            var sb = new StringBuilder(this._value);
 
             for (var i = 0; i < this._value.Length; i++)
             {
@@ -129,8 +179,7 @@ namespace MyString
                     startIndex = i;
                     if (currentIndex == toFind.Length - 1)
                     {
-                        //Console.WriteLine($"[STOP] Found \"{this._value}\" indexOf \"{toFind}\" {startIndex}");
-                        break; //Found!
+                        break; // Found
                     }
                     matchInProgress = true;
                 }
@@ -141,14 +190,12 @@ namespace MyString
 
                     if (sb[sbIndex] == toFind[currentIndex] && currentIndex == toFind.Length - 1)
                     {
-                        //Console.WriteLine($"[STOP] Found \"{this._value}\" indexOf \"{toFind}\" {startIndex}");
-                        break; //Found!
+                        break; // Found
                     }
                     else if (sb[sbIndex] != toFind[currentIndex] && sbIndex == sb.Length - 1)
                     {
                         startIndex = -1;
-                        //Console.WriteLine($"[STOP] NOT Found \"{this._value}\" indexOf \"{toFind}\" {startIndex}");
-                        break; //Not found;
+                        break; // Not found
                     }
 
                     if (sb[sbIndex] != toFind[currentIndex])
@@ -167,6 +214,34 @@ namespace MyString
             }
 
             return startIndex;
+        }
+        // String.IndexOfFuzzy()
+        public int IndexOfFuzzy(string query, char fuzzyChar = '*')
+        {
+            if (query.Length == 0)
+            {
+                return 0;
+            }
+
+            for (var i = 0; i < _value.Length; i++)
+            {
+                if (i < query.Length - 1) continue;
+
+                for (int c = 0; c < query.Length; c++)
+                {
+                    if (_value[i - ((query.Length - 1) - c)] != query[c] && query[c] != fuzzyChar)
+                    {
+                        break;
+                    }
+
+                    if (c == query.Length - 1)
+                    {
+                        return i - (query.Length - 1);
+                    }
+                }
+            }
+
+            return -1;
         }
 
         public string Insert(int startIndex, string value)
