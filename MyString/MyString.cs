@@ -271,7 +271,14 @@ namespace MyString
         }
         public static bool IsNullOrEmpty(string? value)
         {
-            throw new NotImplementedException();
+            if (value is null || value.Length == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public static bool IsNullOrWhiteSpace(string? value)
         {

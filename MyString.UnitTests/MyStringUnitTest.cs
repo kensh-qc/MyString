@@ -106,12 +106,20 @@ namespace MyString.UnitTests
         }
 
         [TestMethod, TestCategory("Insert")]
-        public void Insert()
+        public void InsertTest()
         {
             Assert.AreEqual(new String("hello ").Insert(6, "world"), new MyString("hello ").Insert(6, "world"));
             Assert.AreEqual(new String("hello ").Insert(6, ""), new MyString("hello ").Insert(6, ""));
             Assert.AreEqual(new String("hello ").Insert(0, "Test"), new MyString("hello ").Insert(0, "Test"));
             Assert.AreEqual(new String("hello test message").Insert(6, "world"), new MyString("hello test message").Insert(6, "world"));
+        }
+
+        [TestMethod, TestCategory("IsNullOrEmpty")]
+        public void IsNullOrEmptyTest()
+        {
+            Assert.AreEqual(String.IsNullOrEmpty(""), MyString.IsNullOrEmpty(""));
+            Assert.AreEqual(String.IsNullOrEmpty(null), MyString.IsNullOrEmpty(null));
+            Assert.AreEqual(String.IsNullOrEmpty("test"), MyString.IsNullOrEmpty("test"));
         }
     }
 }
