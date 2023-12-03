@@ -1,0 +1,11 @@
+image: mcr.microsoft.com/dotnet/sdk:latest
+
+
+build:
+  stage: build
+
+  before_script:
+    - 'echo "before_script"'
+
+  script:
+    - 'echo "script"'
