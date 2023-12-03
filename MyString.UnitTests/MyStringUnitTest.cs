@@ -107,7 +107,7 @@ namespace MyString.UnitTests
             Assert.AreEqual(new String("aaaaabc").LastIndexOf("aaabc"), new MyString("aaaaabc").LastIndexOf("aaabc"), "(aaaaabc, aaabc)");
             Assert.AreEqual(new String("Hello").LastIndexOf(""), new MyString("Hello").LastIndexOf(""), "(empty string)");
             Assert.AreEqual(new String("a").LastIndexOf("abc"), new MyString("a").LastIndexOf("abc"), "abc");
-            Assert.AreEqual(new String("abcabcd").LastIndexOf("abcd"), new MyString("abcabcd").LastIndexOf("abcd"), "abcd");
+            Assert.AreEqual(new String("abcabbca").LastIndexOf("abca"), new MyString("abcabbca").LastIndexOf("abca"), "abca");
             Assert.AreEqual(new String("abcdeabcda").LastIndexOf("abcda"), new MyString("abcdeabcda").LastIndexOf("abcda"), "abcda");
         }
 

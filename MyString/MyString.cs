@@ -339,12 +339,13 @@ namespace MyString
                         break; // Not found
                     }
 
-                    if (sb[sbIndex] != toFind[currentIndex])
+                    if (sb[sbIndex] == toFind[currentIndex])
                     {
-                        i = startIndex - 1;
-                        startIndex = -1;
-                        matchInProgress = false;
+                        continue;
                     }
+                    i = startIndex - 1;
+                    startIndex = -1;
+                    matchInProgress = false;
                 }
                 else if (!matchInProgress)
                 {
