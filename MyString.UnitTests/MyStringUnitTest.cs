@@ -114,8 +114,6 @@ namespace MyString.UnitTests
         [TestMethod, TestCategory("IndexOfFuzzy")]
         public void IndexOfFuzzyTest()
         {
-            // "Hello World"
-            // "*ello" indexOfFuzzy == 0
             Assert.AreEqual(0, new MyString("").IndexOfFuzzy(""), "empty string, empty string");
             Assert.AreEqual(0, new MyString("*").IndexOfFuzzy(""), "*, empty string");
             Assert.AreEqual(-1, new MyString("Hello").IndexOfFuzzy("*d"), "Hello, *d");
